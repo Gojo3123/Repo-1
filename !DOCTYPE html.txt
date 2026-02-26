@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .container {
+            width: 350px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 25px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .tab-btn.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 9px;
+            margin-bottom: 15px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .msg {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 13px;
+            color: green;
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        p.note {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome!!</h1>
+
+    <div class="container">
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('signin')">Sign In</button>
+            <button class="tab-btn" onclick="showTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="form-section active" id="signin">
+            <h3 style="text-align:center; color:#333;">Sign In</h3>
+            <form onsubmit="handleSignIn(event)">
+                <label>Username:</label>
+                <input type="text" id="signin-username" placeholder="Enter username" />
+                <p class="error" id="signin-user-err">Please enter username!</p>
+
+                <label>Password:</label>
+                <input type="password" id="signin-password" placeholder="Enter password" />
+                <p class="error" id="signin-pass-err">Please enter password!</p>
+
+                <button type="submit">Login</button>
+                <p class="msg" id="signin-msg">✅ Login Successful!</p>
+            </form>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="form-section" id="signup">
+            <h3 style="text-align:center; color:#333;">Sign Up</h3>
+            <form onsubmit="handleSignUp(event)">
+                <label>Username:</label>
+                <input type="text" id="signup-username" placeholder="Choose a username" />
+                <p class="error" id="signup-user-err">Please enter username!</p>
+
+                <label>Password:</label>
+                <input type="password" id="signup-password" placeholder="Choose a password" />
+                <p class="error" id="signup-pass-err">Please enter password!</p>
+
+                <button type="submit">Create Account</button>
+                <p class="msg" id="signup-msg">✅ Account Created!</p>
+            </form>
+        </div>
+
+        <p class="note">* This is a simple login page *</p>
+    </div>
+
+    <script>
+        // show the selected tab
+        function showTab(tab) {
+            // hide all forms
+            document.querySelectorAll('.form-section').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            // remove active from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(function(el) {
+                el.classList.remove('active');
+            });
+
+            // show selected form
+            document.getElementById(tab).classList.add('active');
+
+            // highlight correct tab button
+            if (tab === 'signin') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            }
+        }
+
+        // handle sign in
+        function handleSignIn(e) {
+            e.preventDefault();
+
+            var username = document.getElementById('signin-username').value;
+            var password = document.getElementById('signin-password').value;
+            var hasError = false;
+
+            document.getElementById('signin-user-err').style.display = 'none';
+            document.getElementById('signin-pass-err').style.display = 'none';
+            document.getElementById('signin-msg').style.display = 'none';
+
+            if (username == '') {
+                document.getElementById('signin-user-err').style.display = 'block';
+                hasError = true;
+            }
+
+            if (password == '') {
+                document.getElementById('signin-pass-err').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!hasError) {
+                document.getElementById('signin-msg').style.display = 'block';
+            }
+        }
+
+        // handle sign up
+        function handleSignUp(e) {
+            e.preventDefault();
+
+            var username = document.getElementById('signup-username').value;
+            var password = document.getElementById('signup-password').value;
+            var hasError = false;
+
+            document.getElementById('signup-user-err').style.display = 'none';
+            document.getElementById('signup-pass-err').style.display = 'none';
+            document.getElementById('signup-msg').style.display = 'none';
+
+            if (username == '') {
+                document.getElementById('signup-user-err').style.display = 'block';
+                hasError = true;
+            }
+
+            if (password == '') {
+                document.getElementById('signup-pass-err').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!hasError) {
+                document.getElementById('signup-msg').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
